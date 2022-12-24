@@ -57,4 +57,21 @@ class RockPaperScissorsTest {
 
         assertEquals(15, rps.gameScore)
     }
+
+    @Test
+    fun testChooseMove() {
+        var rps = RockPaperScissors()
+
+        assertEquals(RpsScore.ROCK, rps.chooseMove(RpsScore.ROCK, draw))
+        assertEquals(RpsScore.PAPER, rps.chooseMove(RpsScore.PAPER, draw))
+        assertEquals(RpsScore.SCISSORS, rps.chooseMove(RpsScore.SCISSORS, draw))
+
+        assertEquals(RpsScore.PAPER, rps.chooseMove(RpsScore.ROCK, win))
+        assertEquals(RpsScore.SCISSORS, rps.chooseMove(RpsScore.PAPER, win))
+        assertEquals(RpsScore.ROCK, rps.chooseMove(RpsScore.SCISSORS, win))
+
+        assertEquals(RpsScore.SCISSORS, rps.chooseMove(RpsScore.ROCK, lose))
+        assertEquals(RpsScore.ROCK, rps.chooseMove(RpsScore.PAPER, lose))
+        assertEquals(RpsScore.PAPER, rps.chooseMove(RpsScore.SCISSORS, lose))
+    }
 }
