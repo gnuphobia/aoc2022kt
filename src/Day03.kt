@@ -10,7 +10,28 @@ fun main() {
     }
 
     fun part2(input: List<String>): Int {
-        return input.size
+        var journey: MutableList<RuckGroup> = mutableListOf<RuckGroup>()
+        var count = 0
+        var ruckGroup = RuckGroup()
+        for(item in input) {
+            ruckGroup.addRucker(item)
+            count++
+
+            if (count > 2) {
+                journey.add(ruckGroup)
+                ruckGroup = RuckGroup()
+                count = 0
+            }
+        }
+
+        var priorityScore: Int = 0
+        val priority = PriorityScore()
+        for(group in journey) {
+            group.findCommonItem()
+            priorityScore += priority.itemPriority(group.commonItem)
+        }
+
+        return priorityScore
     }
 
     // test if implementation meets criteria from the description, like:
@@ -18,7 +39,11 @@ fun main() {
     var priority1: Int = part1(testInput)
     check(priority1 == 157)
 
+    var part2ExpectedAnswer = 70
+    var part2Answer = part2(testInput)
+    check(part2Answer == part2ExpectedAnswer)
+
     val input = readInput("Day03")
     part1(input).println()
-//    part2(input).println()
+    part2(input).println()
 }
